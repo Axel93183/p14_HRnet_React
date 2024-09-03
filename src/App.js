@@ -1,8 +1,8 @@
 import React from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
-import CreateEmployee from "./components/CreateEmployee/CreateEmployee";
-import EmployeeList from "./components/EmployeeList/EmployeeList";
+import CreateEmployee from "./pages/CreateEmployee/CreateEmployee";
+import EmployeeList from "./pages/EmployeeList/EmployeeList";
 
 function App() {
   return (

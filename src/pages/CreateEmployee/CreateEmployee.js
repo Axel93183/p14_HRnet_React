@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import EmployeeForm from "../EmployeeForm/EmployeeForm";
-import ModalComponent from "../ModalComponent/ModalComponent";
+import EmployeeForm from "./../../components/EmployeeForm/EmployeeForm";
+import ModalComponent from "../../components/ModalComponent/ModalComponent";
 
 /**
  * CreateEmployee Component - Main component to create an employee
