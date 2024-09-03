@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import AddressForm from "../AddressForm/AddressForm";
 import Form from "../Form/Form";
 import FormField from "../Form/FormField";
-import "./EmployeeForm.css"; // Optionnel
+import "./EmployeeForm.css";
 
 /**
  * EmployeeForm Component - Form to input employee details
@@ -12,19 +12,46 @@ import "./EmployeeForm.css"; // Optionnel
  * @returns {JSX.Element} The EmployeeForm component
  */
 const EmployeeForm = ({ onSuccess }) => {
+  const [startDate, setStartDate] = useState(null);
+  const [dateOfBirth, setDateOfBirth] = useState(null);
+  const [dateError, setDateError] = useState("");
   const today = new Date();
 
   /**
-   * Fonction appelée lors de la soumission du formulaire
-   * @param {Object} data - Les données du formulaire
+   * Function to validate dates and update errors
+   * @param {Date} newDate - The newly selected date
+   * @param {string} type - The type of date ("startDate" or "dateOfBirth")
+   */
+  const validateDates = (newDate, type) => {
+    let errorMessage = "";
+
+    if (type === "startDate") {
+      setStartDate(newDate);
+    }
+
+    if (type === "dateOfBirth") {
+      setDateOfBirth(newDate);
+      if (newDate > startDate) {
+        errorMessage = "Date of Birth cannot be after Start Date.";
+      }
+    }
+
+    setDateError(errorMessage);
+  };
+
+  /**
+   * Function called when the form is submitted
+   * @param {Object} data - The form data
    */
   const handleEmployeeSubmit = (data) => {
-    // Enregistrer les données dans le localStorage ou ailleurs
+    if (dateError) {
+      return;
+    }
+
     const employees = JSON.parse(localStorage.getItem("employees")) || [];
     employees.push(data);
     localStorage.setItem("employees", JSON.stringify(employees));
 
-    // Appeler la fonction de succès, si elle est fournie
     if (onSuccess) {
       onSuccess();
     }
@@ -53,7 +80,9 @@ const EmployeeForm = ({ onSuccess }) => {
         label="Date of Birth"
         type="date"
         required
-        maxDate={today}
+        maxDate={startDate}
+        error={dateError}
+        onInput={(date) => validateDates(date, "dateOfBirth")}
       />
 
       <FormField
@@ -62,6 +91,9 @@ const EmployeeForm = ({ onSuccess }) => {
         type="date"
         required
         maxDate={today}
+        minDate={dateOfBirth}
+        error={dateError}
+        onInput={(date) => validateDates(date, "startDate")}
       />
 
       <AddressForm />

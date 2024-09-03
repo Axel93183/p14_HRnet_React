@@ -1,7 +1,7 @@
 import React from "react";
 import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { useFormContext } from "react-hook-form";
-import "react-datepicker/dist/react-datepicker.css"; // Assurez-vous d'inclure le CSS de react-datepicker
 import "./FormField.css";
 
 /**
@@ -19,6 +19,7 @@ import "./FormField.css";
  * @param {string} [props.error] - Optional error message to display.
  * @param {Array} [props.options] - Optional array of options for a select field.
  * @param {Date} [props.maxDate] - Optional max date for date picker.
+ * @param {Date} [props.minDate] - Optional min date for date picker.
  * @returns {JSX.Element} The rendered FormField component with integrated form management and validation.
  */
 const FormField = ({
@@ -32,6 +33,7 @@ const FormField = ({
   error,
   options,
   maxDate,
+  minDate,
 }) => {
   const {
     register,
@@ -40,7 +42,6 @@ const FormField = ({
     formState: { errors },
   } = useFormContext();
 
-  // Watch the value of the date field
   const fieldValue = watch(name);
 
   return (
@@ -63,8 +64,12 @@ const FormField = ({
         <DatePicker
           id={name}
           selected={fieldValue || defaultValue}
-          onChange={(date) => setValue(name, date)}
+          onChange={(date) => {
+            setValue(name, date);
+            if (onInput) onInput(date); // Trigger onInput function if provided
+          }}
           maxDate={maxDate}
+          minDate={minDate}
           showYearDropdown
           showMonthDropdown
           dropdownMode="select"
