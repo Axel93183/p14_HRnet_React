@@ -85,7 +85,7 @@ const FormField = ({
           onInput={onInput}
         />
       )}
-      {errors[name] && <p className="error-message">{label} est requis</p>}
+      {errors[name] && <p className="error-message">{label} is required</p>}
       {error && <p className="error-message">{error}</p>}
     </div>
   );

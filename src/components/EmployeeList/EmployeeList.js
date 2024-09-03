@@ -1,8 +1,28 @@
 import React, { useEffect, useState } from "react";
+import { format } from "date-fns";
 import { useTable } from "react-table";
-
 import "./EmployeeList.css";
 
+/**
+ * Utility function to format dates as dd/MM/yyyy using date-fns.
+ * @param {string} dateString - The date string to format.
+ * @returns {string} The formatted date string.
+ */
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  return format(date, "dd/ MM/ yyyy"); // Format the date as dd/MM/yyyy
+};
+
+/**
+ * EmployeeList component.
+ * Displays a table of employee information with columns for personal details and dates.
+ *
+ * The component fetches employee data from localStorage and displays it in a table format.
+ * It uses `react-table` for table management and `date-fns` for date formatting.
+ *
+ * @component
+ * @returns {JSX.Element} The rendered EmployeeList component with a table of employees.
+ */
 const EmployeeList = () => {
   const [employees, setEmployees] = useState([]);
 
@@ -17,9 +37,12 @@ const EmployeeList = () => {
     () => [
       { Header: "First Name", accessor: "firstName" },
       { Header: "Last Name", accessor: "lastName" },
-      { Header: "Start Date", accessor: "startDate" },
+      { Header: "Start Date", accessor: (row) => formatDate(row.startDate) },
       { Header: "Department", accessor: "department" },
-      { Header: "Date of Birth", accessor: "dateOfBirth" },
+      {
+        Header: "Date of Birth",
+        accessor: (row) => formatDate(row.dateOfBirth),
+      },
       { Header: "Street", accessor: "street" },
       { Header: "City", accessor: "city" },
       { Header: "State", accessor: "state" },
