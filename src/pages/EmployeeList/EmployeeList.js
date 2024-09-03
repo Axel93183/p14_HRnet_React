@@ -1,35 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { format } from "date-fns";
+import React from "react";
+import { useSelector } from "react-redux";
 import { useTable } from "react-table";
 import "./EmployeeList.css";
 
-/**
- * Utility function to format dates as dd/MM/yyyy using date-fns.
- * @param {string} dateString - The date string to format.
- * @returns {string} The formatted date string.
- */
 const formatDate = (dateString) => {
   const date = new Date(dateString);
-  return format(date, "dd/ MM/ yyyy"); // Format the date as dd/MM/yyyy
+  return isNaN(date) ? "" : date.toLocaleDateString();
 };
 
-/**
- * EmployeeList component.
- * Displays a table of employee information with columns for personal details and dates.
- *
- * The component fetches employee data from localStorage and displays it in a table format.
- * It uses `react-table` for table management and `date-fns` for date formatting.
- *
- * @component
- * @returns {JSX.Element} The rendered EmployeeList component with a table of employees.
- */
 const EmployeeList = () => {
-  const [employees, setEmployees] = useState([]);
-
-  useEffect(() => {
-    const storedEmployees = JSON.parse(localStorage.getItem("employees")) || [];
-    setEmployees(storedEmployees);
-  }, []);
+  const employees = useSelector((state) => state.employees.employees);
 
   const data = React.useMemo(() => employees, [employees]);
 
@@ -63,20 +43,25 @@ const EmployeeList = () => {
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
+            <tr {...headerGroup.getHeaderGroupProps()} key={headerGroup.id}>
               {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+                <th {...column.getHeaderProps()} key={column.id}>
+                  {column.render("Header")}
+                </th>
               ))}
             </tr>
           ))}
         </thead>
+
         <tbody {...getTableBodyProps()}>
           {rows.map((row) => {
             prepareRow(row);
             return (
-              <tr {...row.getRowProps()}>
+              <tr {...row.getRowProps()} key={row.id}>
                 {row.cells.map((cell) => (
-                  <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                  <td {...cell.getCellProps()} key={cell.column.id}>
+                    {cell.render("Cell")}
+                  </td>
                 ))}
               </tr>
             );

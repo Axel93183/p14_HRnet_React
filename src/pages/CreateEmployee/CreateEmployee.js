@@ -1,24 +1,19 @@
 import React, { useState } from "react";
-import EmployeeForm from "./../../components/EmployeeForm/EmployeeForm";
+import { Link } from "react-router-dom";
 import ModalComponent from "../../components/ModalComponent/ModalComponent";
+import EmployeeForm from "./../../components/EmployeeForm/EmployeeForm";
 
 /**
  * CreateEmployee Component - Main component to create an employee
  * @returns {JSX.Element} The CreateEmployee component
  */
+
 const CreateEmployee = () => {
   const [isModalOpen, setModalOpen] = useState(false);
 
-  /**
-   * Fonction pour fermer le modal
-   */
   const closeModal = () => setModalOpen(false);
 
-  /**
-   * Fonction appelée lors de la soumission réussie du formulaire
-   */
   const handleSuccess = () => {
-    // Ouvrir le modal de confirmation
     setModalOpen(true);
   };
 
@@ -27,7 +22,7 @@ const CreateEmployee = () => {
       <h1>Create Employee</h1>
       <EmployeeForm onSuccess={handleSuccess} />
       <ModalComponent isOpen={isModalOpen} onClose={closeModal} />
-      <a href="/employee-list">List of employees</a>
+      <Link to={"/employee-list"}>List of employees</Link>
     </div>
   );
 };

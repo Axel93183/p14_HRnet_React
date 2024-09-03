@@ -39,7 +39,7 @@ const FormField = ({
     register,
     setValue,
     watch,
-    formState: { errors },
+    formState: { errors, isSubmitted },
   } = useFormContext();
 
   const fieldValue = watch(name);
@@ -61,20 +61,25 @@ const FormField = ({
           ))}
         </select>
       ) : type === "date" ? (
-        <DatePicker
-          id={name}
-          selected={fieldValue || defaultValue}
-          onChange={(date) => {
-            setValue(name, date);
-            if (onInput) onInput(date); // Trigger onInput function if provided
-          }}
-          maxDate={maxDate}
-          minDate={minDate}
-          showYearDropdown
-          showMonthDropdown
-          dropdownMode="select"
-          dateFormat="dd/MM/yyyy"
-        />
+        <div>
+          <DatePicker
+            id={name}
+            selected={fieldValue || defaultValue}
+            onChange={(date) => {
+              setValue(name, date);
+              if (onInput) onInput(date);
+            }}
+            maxDate={maxDate}
+            minDate={minDate}
+            showYearDropdown
+            showMonthDropdown
+            dropdownMode="select"
+            dateFormat="dd/MM/yyyy"
+          />
+          {required && isSubmitted && !fieldValue && (
+            <p className="error-message">{label} is required</p>
+          )}
+        </div>
       ) : (
         <input
           id={name}

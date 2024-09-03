@@ -1,27 +1,19 @@
 import React, { useState } from "react";
-import "react-datepicker/dist/react-datepicker.css";
+import { useDispatch } from "react-redux";
+import { addEmployee } from "../../redux/slices/employeeSlice";
 import AddressForm from "../AddressForm/AddressForm";
 import Form from "../Form/Form";
 import FormField from "../Form/FormField";
 import "./EmployeeForm.css";
 
-/**
- * EmployeeForm Component - Form to input employee details
- * @param {Object} props - The properties for the component.
- * @param {Function} props.onSuccess - Callback function to call on successful submission.
- * @returns {JSX.Element} The EmployeeForm component
- */
 const EmployeeForm = ({ onSuccess }) => {
   const [startDate, setStartDate] = useState(null);
   const [dateOfBirth, setDateOfBirth] = useState(null);
   const [dateError, setDateError] = useState("");
+  const [formError, setFormError] = useState("");
   const today = new Date();
+  const dispatch = useDispatch();
 
-  /**
-   * Function to validate dates and update errors
-   * @param {Date} newDate - The newly selected date
-   * @param {string} type - The type of date ("startDate" or "dateOfBirth")
-   */
   const validateDates = (newDate, type) => {
     let errorMessage = "";
 
@@ -39,18 +31,20 @@ const EmployeeForm = ({ onSuccess }) => {
     setDateError(errorMessage);
   };
 
-  /**
-   * Function called when the form is submitted
-   * @param {Object} data - The form data
-   */
   const handleEmployeeSubmit = (data) => {
-    if (dateError) {
+    if (dateError || !startDate || !dateOfBirth) {
+      setFormError("Please fill in all required fields.");
       return;
     }
 
-    const employees = JSON.parse(localStorage.getItem("employees")) || [];
-    employees.push(data);
-    localStorage.setItem("employees", JSON.stringify(employees));
+    const employeeData = {
+      ...data,
+      startDate: startDate ? startDate.toISOString() : "",
+      dateOfBirth: dateOfBirth ? dateOfBirth.toISOString() : "",
+    };
+
+    dispatch(addEmployee(employeeData));
+    console.log("Données envoyées au store :", employeeData);
 
     if (onSuccess) {
       onSuccess();
@@ -59,6 +53,7 @@ const EmployeeForm = ({ onSuccess }) => {
 
   return (
     <Form onSubmit={handleEmployeeSubmit}>
+      {formError && <p className="error-message">{formError}</p>}
       <FormField
         name="firstName"
         label="First Name"
@@ -66,7 +61,6 @@ const EmployeeForm = ({ onSuccess }) => {
         placeholder="Enter your first name"
         required
       />
-
       <FormField
         name="lastName"
         label="Last Name"
@@ -74,7 +68,6 @@ const EmployeeForm = ({ onSuccess }) => {
         placeholder="Enter your last name"
         required
       />
-
       <FormField
         name="dateOfBirth"
         label="Date of Birth"
@@ -84,7 +77,6 @@ const EmployeeForm = ({ onSuccess }) => {
         error={dateError}
         onInput={(date) => validateDates(date, "dateOfBirth")}
       />
-
       <FormField
         name="startDate"
         label="Start Date"
@@ -95,9 +87,7 @@ const EmployeeForm = ({ onSuccess }) => {
         error={dateError}
         onInput={(date) => validateDates(date, "startDate")}
       />
-
       <AddressForm />
-
       <FormField
         name="department"
         label="Department"
@@ -111,7 +101,6 @@ const EmployeeForm = ({ onSuccess }) => {
         ]}
         required
       />
-
       <button type="submit">Save</button>
     </Form>
   );
