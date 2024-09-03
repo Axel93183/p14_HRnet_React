@@ -36,6 +36,7 @@ const EmployeeList = () => {
   return (
     <div className="container">
       <h2>Current Employees</h2>
+      <a href="/">Add an employee</a>
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
