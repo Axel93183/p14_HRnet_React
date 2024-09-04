@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { useTable } from "react-table";
 import "./EmployeeList.css";
 
@@ -37,9 +38,11 @@ const EmployeeList = () => {
     tableInstance;
 
   return (
-    <div className="container">
+    <div className="container ">
       <h2>Current Employees</h2>
-      <a href="/">Add an employee</a>
+      <Link to="/" className="page-link">
+        Add an employee
+      </Link>
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (

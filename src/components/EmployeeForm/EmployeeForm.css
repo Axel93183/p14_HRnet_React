@@ -1,0 +1,28 @@
+.employee-form {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.employee-form .error-message {
+  color: #e74c3c;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.employee-form button[type="submit"] {
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.employee-form button[type="submit"]:hover {
+  background-color: #2980b9;
+}

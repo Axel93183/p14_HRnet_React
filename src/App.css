@@ -26,3 +26,13 @@ label {
   font-size: 0.8rem;
   color: #fa2a2a;
 }
+
+.page-link {
+  text-decoration: none;
+  color: black;
+  margin-bottom: 5px;
+}
+
+.page-link:hover {
+  color: #fa2a2a;
+}

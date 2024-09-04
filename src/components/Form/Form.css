@@ -1,0 +1,23 @@
+/* Form.css */
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form .form-field {
+  margin-bottom: 20px;
+}
+
+.form .form-field label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.form .form-field input,
+.form .form-field select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-top: 5px;
+}

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import ModalComponent from "../../components/ModalComponent/ModalComponent";
 import EmployeeForm from "./../../components/EmployeeForm/EmployeeForm";
+import "./CreateEmployee.css";
 
 /**
  * CreateEmployee Component - Main component to create an employee
@@ -18,11 +19,11 @@ const CreateEmployee = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container ">
       <h1>Create Employee</h1>
+      <Link to={"/employee-list"} className="page-link">List of employees</Link>
       <EmployeeForm onSuccess={handleSuccess} />
       <ModalComponent isOpen={isModalOpen} onClose={closeModal} />
-      <Link to={"/employee-list"}>List of employees</Link>
     </div>
   );
 };

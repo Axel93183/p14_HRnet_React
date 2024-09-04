@@ -1,6 +1,7 @@
 import React from "react";
 import states from "../../data/states";
 import FormField from "../Form/FormField";
+import "./AddressForm.css";
 
 /**
  * AddressForm Component - Form to input address details
@@ -22,6 +23,7 @@ const AddressForm = () => {
         type="text"
         placeholder="Enter your street"
         required
+        className="form-field"
       />
 
       <FormField
@@ -30,6 +32,7 @@ const AddressForm = () => {
         type="text"
         placeholder="Enter your city"
         required
+        className="form-field"
       />
 
       <FormField
@@ -38,6 +41,7 @@ const AddressForm = () => {
         type="select"
         options={stateOptions}
         required
+        className="form-field"
       />
 
       <FormField
@@ -46,6 +50,7 @@ const AddressForm = () => {
         type="number"
         placeholder="Enter your zip code"
         required
+        className="form-field"
       />
     </fieldset>
   );

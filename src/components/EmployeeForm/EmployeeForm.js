@@ -52,7 +52,7 @@ const EmployeeForm = ({ onSuccess }) => {
   };
 
   return (
-    <Form onSubmit={handleEmployeeSubmit}>
+    <Form onSubmit={handleEmployeeSubmit} className="employee-form">
       {formError && <p className="error-message">{formError}</p>}
       <FormField
         name="firstName"

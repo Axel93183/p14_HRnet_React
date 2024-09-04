@@ -17,11 +17,12 @@ import "./Form.css";
 const Form = ({ onSubmit, children, className, error }) => {
   const methods = useForm();
 
-  const formClass = className ? className : "form";
-
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)} className={formClass}>
+      <form
+        onSubmit={methods.handleSubmit(onSubmit)}
+        className={`form ${className}`}
+      >
         {children}
         {error && <p className="error-message">{error}</p>}
       </form>
