@@ -29,10 +29,13 @@ label {
 
 .page-link {
   text-decoration: none;
-  color: black;
+  color: rgb(77, 77, 255);
   margin-bottom: 5px;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 0.83em;
 }
 
 .page-link:hover {
-  color: #fa2a2a;
+  color: rgb(2, 2, 7);
 }

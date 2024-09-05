@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { useTable } from "react-table";
+import { useSortBy, useTable } from "react-table";
 import "./EmployeeList.css";
 
 const formatDate = (dateString) => {
@@ -16,40 +16,98 @@ const EmployeeList = () => {
 
   const columns = React.useMemo(
     () => [
-      { Header: "First Name", accessor: "firstName" },
-      { Header: "Last Name", accessor: "lastName" },
-      { Header: "Start Date", accessor: (row) => formatDate(row.startDate) },
-      { Header: "Department", accessor: "department" },
+      {
+        Header: "First Name",
+        accessor: "firstName",
+        sortType: "alphanumeric",
+      },
+      {
+        Header: "Last Name",
+        accessor: "lastName",
+        sortType: "alphanumeric",
+      },
+      {
+        Header: "Start Date",
+        accessor: "startDate",
+        Cell: ({ value }) => formatDate(value),
+        sortType: (a, b) =>
+          new Date(a.original.startDate) - new Date(b.original.startDate),
+      },
+      {
+        Header: "Department",
+        accessor: "department",
+        sortType: "alphanumeric",
+      },
       {
         Header: "Date of Birth",
-        accessor: (row) => formatDate(row.dateOfBirth),
+        accessor: "dateOfBirth",
+        Cell: ({ value }) => formatDate(value),
+        sortType: (a, b) =>
+          new Date(a.original.dateOfBirth) - new Date(b.original.dateOfBirth),
       },
-      { Header: "Street", accessor: "street" },
-      { Header: "City", accessor: "city" },
-      { Header: "State", accessor: "state" },
-      { Header: "Zip Code", accessor: "zipCode" },
+      {
+        Header: "Street",
+        accessor: "street",
+        sortType: "alphanumeric",
+      },
+      {
+        Header: "City",
+        accessor: "city",
+        sortType: "alphanumeric",
+      },
+      {
+        Header: "State",
+        accessor: "state",
+        sortType: "alphanumeric",
+      },
+      {
+        Header: "Zip Code",
+        accessor: "zipCode",
+        sortType: "alphanumeric",
+      },
     ],
     []
   );
 
-  const tableInstance = useTable({ columns, data });
+  const tableInstance = useTable({ columns, data }, useSortBy);
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     tableInstance;
 
   return (
-    <div className="container ">
+    <div className="container">
       <h2>Current Employees</h2>
       <Link to="/" className="page-link">
-        Add an employee
+        Home
       </Link>
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()} key={headerGroup.id}>
               {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()} key={column.id}>
-                  {column.render("Header")}
+                <th
+                  {...column.getHeaderProps(column.getSortByToggleProps())}
+                  key={column.id}
+                  className={
+                    column.isSorted
+                      ? column.isSortedDesc
+                        ? "sorted-desc"
+                        : "sorted-asc"
+                      : ""
+                  }
+                >
+                  <span>
+                    {column.render("Header")}
+                    {column.isSorted ? (
+                      column.isSortedDesc ? (
+                        <span> 🔽 </span>
+                      ) : (
+                        <span> 🔼 </span>
+                      )
+                    ) : (
+                      <span> ↕️ </span>
+                    )}
+                  </span>
                 </th>
               ))}
             </tr>

@@ -21,7 +21,7 @@ const CreateEmployee = () => {
   return (
     <div className="container ">
       <h1>Create Employee</h1>
-      <Link to={"/employee-list"} className="page-link">List of employees</Link>
+      <Link to={"/employee-list"} className="page-link">View Current Employees</Link>
       <EmployeeForm onSuccess={handleSuccess} />
       <ModalComponent isOpen={isModalOpen} onClose={closeModal} />
     </div>
