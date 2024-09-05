@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
 import { addEmployee } from "../../redux/slices/employeeSlice";
 import AddressForm from "../AddressForm/AddressForm";
 import Form from "../Form/Form";
@@ -12,6 +13,7 @@ const EmployeeForm = ({ onSuccess }) => {
   const [dateError, setDateError] = useState("");
   const [formError, setFormError] = useState("");
   const today = new Date();
+
   const dispatch = useDispatch();
 
   const validateDates = (newDate, type) => {
@@ -31,13 +33,16 @@ const EmployeeForm = ({ onSuccess }) => {
     setDateError(errorMessage);
   };
 
-  const handleEmployeeSubmit = (data) => {
-    if (dateError || !startDate || !dateOfBirth) {
+  const handleEmployeeSubmit = (data, methods) => {
+    const { reset } = methods;
+
+    if (!startDate || !dateOfBirth || dateError) {
       setFormError("Please fill in all required fields.");
       return;
     }
 
     const employeeData = {
+      id: uuidv4(),
       ...data,
       startDate: startDate ? startDate.toISOString() : "",
       dateOfBirth: dateOfBirth ? dateOfBirth.toISOString() : "",
@@ -49,6 +54,7 @@ const EmployeeForm = ({ onSuccess }) => {
     if (onSuccess) {
       onSuccess();
     }
+    reset();
   };
 
   return (

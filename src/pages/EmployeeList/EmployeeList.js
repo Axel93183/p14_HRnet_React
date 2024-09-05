@@ -1,7 +1,8 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useSortBy, useTable } from "react-table";
+import { removeEmployee } from "../../redux/slices/employeeSlice";
 import "./EmployeeList.css";
 
 const formatDate = (dateString) => {
@@ -11,6 +12,7 @@ const formatDate = (dateString) => {
 
 const EmployeeList = () => {
   const employees = useSelector((state) => state.employees.employees);
+  const dispatch = useDispatch();
 
   const data = React.useMemo(() => employees, [employees]);
 
@@ -65,8 +67,19 @@ const EmployeeList = () => {
         accessor: "zipCode",
         sortType: "alphanumeric",
       },
+      {
+        Header: "Actions",
+        Cell: ({ row }) => (
+          <button
+            onClick={() => dispatch(removeEmployee(row.original.id))}
+            className="delete-button"
+          >
+            🗑️
+          </button>
+        ),
+      },
     ],
-    []
+    [dispatch]
   );
 
   const tableInstance = useTable({ columns, data }, useSortBy);

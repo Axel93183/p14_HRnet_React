@@ -3,11 +3,7 @@ import states from "../../data/states";
 import FormField from "../Form/FormField";
 import "./AddressForm.css";
 
-/**
- * AddressForm Component - Form to input address details
- * @returns {JSX.Element} The AddressForm component
- */
-const AddressForm = () => {
+const AddressForm = ({ control }) => {
   const stateOptions = states.map((state) => ({
     value: state.abbreviation,
     label: state.name,
@@ -24,6 +20,7 @@ const AddressForm = () => {
         placeholder="Enter your street"
         required
         className="form-field"
+        control={control}
       />
 
       <FormField
@@ -33,6 +30,7 @@ const AddressForm = () => {
         placeholder="Enter your city"
         required
         className="form-field"
+        control={control}
       />
 
       <FormField
@@ -42,6 +40,7 @@ const AddressForm = () => {
         options={stateOptions}
         required
         className="form-field"
+        control={control}
       />
 
       <FormField
@@ -51,6 +50,7 @@ const AddressForm = () => {
         placeholder="Enter your zip code"
         required
         className="form-field"
+        control={control}
       />
     </fieldset>
   );
