@@ -34,7 +34,7 @@ const EmployeeForm = ({ onSuccess }) => {
   };
 
   const handleEmployeeSubmit = (data, methods) => {
-    const { reset } = methods;
+    const { reset, clearErrors } = methods;
 
     if (!startDate || !dateOfBirth || dateError) {
       setFormError("Please fill in all required fields.");
@@ -54,7 +54,10 @@ const EmployeeForm = ({ onSuccess }) => {
     if (onSuccess) {
       onSuccess();
     }
+
+    clearErrors();
     reset();
+    setFormError("");
   };
 
   return (
@@ -108,6 +111,7 @@ const EmployeeForm = ({ onSuccess }) => {
         required
       />
       <button type="submit">Save</button>
+      {formError && <p className="error-message">{formError}</p>}
     </Form>
   );
 };

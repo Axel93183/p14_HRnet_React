@@ -22,7 +22,7 @@ const FormField = ({
 }) => {
   const {
     register,
-    formState: { errors, isSubmitted },
+    formState: { errors },
   } = useFormContext();
 
   return (
@@ -44,7 +44,7 @@ const FormField = ({
         <Controller
           name={name}
           control={control}
-          render={({ field }) => (
+          render={({ field, fieldState }) => (
             <div>
               <DatePicker
                 id={name}
@@ -60,7 +60,7 @@ const FormField = ({
                 dropdownMode="select"
                 dateFormat="dd/MM/yyyy"
               />
-              {required && isSubmitted && !field.value && (
+              {required && fieldState.error && (
                 <p className="error-message">{label} is required</p>
               )}
             </div>
