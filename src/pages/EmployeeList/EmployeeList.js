@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useSortBy, useTable } from "react-table";
@@ -11,6 +11,7 @@ const formatDate = (dateString) => {
 };
 
 const EmployeeList = () => {
+  const [entriesPerPage, setEntriesPerPage] = useState(10);
   const employees = useSelector((state) => state.employees.employees);
   const dispatch = useDispatch();
 
@@ -87,12 +88,33 @@ const EmployeeList = () => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     tableInstance;
 
+  const handleEntriesChange = (event) => {
+    setEntriesPerPage(Number(event.target.value));
+  };
+
   return (
     <div className="container">
       <h2>Current Employees</h2>
       <Link to="/" className="page-link">
         Home
       </Link>
+      <div className="dataTables_length" id="employee-table_length">
+        <label>
+          Show{" "}
+          <select
+            name="employee-table_length"
+            aria-controls="employee-table"
+            value={entriesPerPage}
+            onChange={handleEntriesChange}
+          >
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>{" "}
+          entries
+        </label>
+      </div>
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
@@ -128,7 +150,7 @@ const EmployeeList = () => {
         </thead>
 
         <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
+          {rows.slice(0, entriesPerPage).map((row) => {
             prepareRow(row);
             return (
               <tr {...row.getRowProps()} key={row.id}>

@@ -51,7 +51,7 @@ const FormField = ({
                 selected={field.value || null}
                 onChange={(date) => {
                   field.onChange(date);
-                  if (onInput) onInput(date);
+                  onInput?.(date);
                 }}
                 maxDate={maxDate}
                 minDate={minDate}

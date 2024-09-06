@@ -83,9 +83,9 @@ const EmployeeForm = ({ onSuccess }) => {
         type="date"
         required
         maxDate={startDate}
-        error={dateError}
         onInput={(date) => validateDates(date, "dateOfBirth")}
       />
+      {dateError && <p className="error-message">{dateError}</p>}
       <FormField
         name="startDate"
         label="Start Date"
@@ -93,7 +93,6 @@ const EmployeeForm = ({ onSuccess }) => {
         required
         maxDate={today}
         minDate={dateOfBirth}
-        error={dateError}
         onInput={(date) => validateDates(date, "startDate")}
       />
       <AddressForm />
