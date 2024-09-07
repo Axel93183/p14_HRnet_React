@@ -10,33 +10,33 @@ import "./EmployeeForm.css";
 const EmployeeForm = ({ onSuccess }) => {
   const [startDate, setStartDate] = useState(null);
   const [dateOfBirth, setDateOfBirth] = useState(null);
-  const [dateError, setDateError] = useState("");
   const [formError, setFormError] = useState("");
   const today = new Date();
 
   const dispatch = useDispatch();
 
   const validateDates = (newDate, type) => {
-    let errorMessage = "";
-
     if (type === "startDate") {
       setStartDate(newDate);
+
+      if (dateOfBirth && newDate < dateOfBirth) {
+        return;
+      }
     }
 
     if (type === "dateOfBirth") {
       setDateOfBirth(newDate);
-      if (newDate > startDate) {
-        errorMessage = "Date of Birth cannot be after Start Date.";
+
+      if (startDate && newDate > startDate) {
+        return;
       }
     }
-
-    setDateError(errorMessage);
   };
 
   const handleEmployeeSubmit = (data, methods) => {
     const { reset, clearErrors } = methods;
 
-    if (!startDate || !dateOfBirth || dateError) {
+    if (!startDate || !dateOfBirth) {
       setFormError("Please fill in all required fields.");
       return;
     }
@@ -85,7 +85,6 @@ const EmployeeForm = ({ onSuccess }) => {
         maxDate={startDate}
         onInput={(date) => validateDates(date, "dateOfBirth")}
       />
-      {dateError && <p className="error-message">{dateError}</p>}
       <FormField
         name="startDate"
         label="Start Date"

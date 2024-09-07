@@ -44,6 +44,7 @@ const FormField = ({
         <Controller
           name={name}
           control={control}
+          rules={{ required }}
           render={({ field, fieldState }) => (
             <div>
               <DatePicker
@@ -60,9 +61,6 @@ const FormField = ({
                 dropdownMode="select"
                 dateFormat="dd/MM/yyyy"
               />
-              {required && fieldState.error && (
-                <p className="error-message">{label} is required</p>
-              )}
             </div>
           )}
         />
