@@ -82,7 +82,7 @@ const EmployeeForm = ({ onSuccess }) => {
         label="Date of Birth"
         type="date"
         required
-        maxDate={startDate}
+        maxDate={today}
         onInput={(date) => validateDates(date, "dateOfBirth")}
       />
       <FormField
