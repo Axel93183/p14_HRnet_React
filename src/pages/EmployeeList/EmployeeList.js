@@ -18,6 +18,10 @@ const EmployeeList = () => {
   const employees = useSelector((state) => state.employees.employees);
   const dispatch = useDispatch();
 
+  const handleEditEmployee = (employee) => {
+    console.log(employee);
+  };
+
   const data = React.useMemo(() => employees, [employees]);
 
   const columns = React.useMemo(
@@ -74,12 +78,20 @@ const EmployeeList = () => {
       {
         Header: "Actions",
         Cell: ({ row }) => (
-          <button
-            onClick={() => dispatch(removeEmployee(row.original.id))}
-            className="delete-button"
-          >
-            🗑️
-          </button>
+          <div className="actions-container">
+            <button
+              onClick={() => dispatch(removeEmployee(row.original.id))}
+              className="delete-button"
+            >
+              🗑️
+            </button>
+            <button
+              onClick={() => handleEditEmployee(row.original)}
+              className="edit-button"
+            >
+              ✏️
+            </button>
+          </div>
         ),
       },
     ],

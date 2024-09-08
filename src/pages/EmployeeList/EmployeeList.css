@@ -66,3 +66,13 @@ td {
   display: flex;
   gap: 50px;
 }
+
+.actions-container {
+  margin: 0 3px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.actions-container button:hover {
+  cursor: pointer;
+}
