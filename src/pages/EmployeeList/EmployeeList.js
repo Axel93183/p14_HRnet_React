@@ -12,6 +12,9 @@ const formatDate = (dateString) => {
 
 const EmployeeList = () => {
   const [entriesPerPage, setEntriesPerPage] = useState(10);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(0);
+
   const employees = useSelector((state) => state.employees.employees);
   const dispatch = useDispatch();
 
@@ -88,19 +91,37 @@ const EmployeeList = () => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     tableInstance;
 
+  const filteredRows = rows.filter((row) =>
+    columns.some((column) =>
+      String(row.original[column.accessor])
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase())
+    )
+  );
+
+  const handlePreviousPage = () => {
+    setCurrentPage((prev) => Math.max(prev - 1, 0));
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage((prev) => prev + 1);
+  };
   const handleEntriesChange = (event) => {
     setEntriesPerPage(Number(event.target.value));
   };
 
   return (
-    <div className="container">
+    <div className="container employee-list-container">
       <h2>Current Employees</h2>
       <Link to="/" className="page-link">
         Home
       </Link>
-      <div className="dataTables_length" id="employee-table_length">
+      <div
+        className="dataTables_length top-table-container"
+        id="employee-table_length"
+      >
         <label>
-          Show{" "}
+          Show
           <select
             name="employee-table_length"
             aria-controls="employee-table"
@@ -111,9 +132,18 @@ const EmployeeList = () => {
             <option value="25">25</option>
             <option value="50">50</option>
             <option value="100">100</option>
-          </select>{" "}
+          </select>
           entries
         </label>
+        <div className="search-container">
+          <label htmlFor="search">Search :</label>
+          <input
+            type="text"
+            placeholder="Search..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
       </div>
       <table {...getTableProps()}>
         <thead>
@@ -150,20 +180,51 @@ const EmployeeList = () => {
         </thead>
 
         <tbody {...getTableBodyProps()}>
-          {rows.slice(0, entriesPerPage).map((row) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()} key={row.id}>
-                {row.cells.map((cell) => (
-                  <td {...cell.getCellProps()} key={cell.column.id}>
-                    {cell.render("Cell")}
-                  </td>
-                ))}
-              </tr>
-            );
-          })}
+          {filteredRows.length === 0 && (
+            <tr>
+              <td colSpan={columns.length} style={{ textAlign: "center" }}>
+                No data available in table
+              </td>
+            </tr>
+          )}
+          {filteredRows
+            .slice(
+              currentPage * entriesPerPage,
+              (currentPage + 1) * entriesPerPage
+            )
+            .map((row) => {
+              prepareRow(row);
+              return (
+                <tr {...row.getRowProps()} key={row.id}>
+                  {row.cells.map((cell) => (
+                    <td {...cell.getCellProps()} key={cell.column.id}>
+                      {cell.render("Cell")}
+                    </td>
+                  ))}
+                </tr>
+              );
+            })}
         </tbody>
       </table>
+      <div className="bottom-table-container">
+        <p>
+          Showing{" "}
+          {filteredRows.length === 0 ? 0 : currentPage * entriesPerPage + 1} to{" "}
+          {Math.min((currentPage + 1) * entriesPerPage, filteredRows.length)} of{" "}
+          {filteredRows.length} entries
+        </p>
+        <div className="pagination-buttons">
+          <button onClick={handlePreviousPage} disabled={currentPage === 0}>
+            Previous
+          </button>
+          <button
+            onClick={handleNextPage}
+            disabled={(currentPage + 1) * entriesPerPage >= rows.length}
+          >
+            Next
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
