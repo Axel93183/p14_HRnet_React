@@ -51,6 +51,10 @@ const EmployeeForm = ({ onSuccess }) => {
     dispatch(addEmployee(employeeData));
     console.log("Données envoyées au store :", employeeData);
 
+    const savedEmployees = JSON.parse(localStorage.getItem("employees")) || [];
+    const updatedEmployees = [...savedEmployees, employeeData];
+    localStorage.setItem("employees", JSON.stringify(updatedEmployees));
+
     if (onSuccess) {
       onSuccess();
     }

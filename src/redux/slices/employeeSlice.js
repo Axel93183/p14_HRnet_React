@@ -1,19 +1,29 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialState = {
+  employees: JSON.parse(localStorage.getItem("employees")) || [],
+};
+
 const employeeSlice = createSlice({
   name: "employees",
-  initialState: {
-    employees: [],
-  },
+  initialState,
   reducers: {
     addEmployee: (state, action) => {
-      console.log("Payload reçu :", action.payload);
-      state.employees.push(action.payload);
+      state.employees = [...state.employees, action.payload];
     },
     removeEmployee: (state, action) => {
       state.employees = state.employees.filter(
         (employee) => employee.id !== action.payload
       );
+
+      const savedEmployees =
+        JSON.parse(localStorage.getItem("employees")) || [];
+
+      const updatedEmployees = savedEmployees.filter(
+        (employee) => employee.id !== action.payload
+      );
+
+      localStorage.setItem("employees", JSON.stringify(updatedEmployees));
     },
   },
 });
