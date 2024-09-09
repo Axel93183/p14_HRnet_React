@@ -19,7 +19,8 @@ const CreateEmployee = () => {
 
   return (
     <div className="container ">
-      <h1>Create Employee</h1>
+      <h1>HRNet</h1>
+      <h2>Create Employee</h2>
       <Link to={"/employee-list"} className="page-link">
         View Current Employees
       </Link>

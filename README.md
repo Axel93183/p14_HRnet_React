@@ -1,70 +1,132 @@
-# Getting Started with Create React App
+# HRNet Employee Management Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a **React** application built for managing employees in a Human Resources system, featuring employee creation, listing, and sorting capabilities. It integrates **React**, **Redux**, and **react-table** to provide an efficient and user-friendly interface.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Create Employee**: Add new employees through a form that includes validation.
+- **Employee List**: View a sortable, paginated table of employees.
+- **Search & Filter**: Easily search for employees and filter the results.
+- **Actions**: Edit or delete employees directly from the list.
+- **Responsive Design**: Optimized for various screen sizes.
+- **Modal Notifications**: Get confirmation notifications upon successful employee creation.
 
-### `npm start`
+## Technologies Used
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **React**: A JavaScript library for building user interfaces.
+- **Redux**: State management for handling global application state.
+- **React Router**: Used for navigating between pages.
+- **react-table**: A flexible library to create a dynamic table with sorting and pagination.
+- **React Hook Form**: Managing form inputs and validation.
+- **Custom Plugin**: `react-modal-plugin-hrnet-agmx` for modal handling.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Installation
 
-### `npm test`
+1. Clone the repository:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+   ```bash
+   git clone https://github.com/Axel93183/p14_HRnet_React.git
+   ```
 
-### `npm run build`
+2. Install dependencies:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+   ```bash
+   npm install
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. Start the application:
+   ```bash
+   npm start
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Usage
 
-### `npm run eject`
+### Create an Employee
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Navigate to the **Create Employee** page. Fill in the required details in the form and submit. A modal will confirm the successful creation of the employee.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### View Employee List
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Go to the **Current Employees** page to view the list of employees. You can sort columns by clicking on the headers, search for employees using the search bar, or delete/edit employees via the action buttons.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Pagination & Entries
 
-## Learn More
+Control the number of entries displayed per page and navigate between pages using the pagination buttons.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Project Structure
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+src/
+│
+├── components/
+│   ├── AddressForm/
+│   │   ├── AddressForm.css
+│   │   └── AddressForm.js
+│   │
+│   ├── EmployeeForm/
+│   │   ├── EmployeeForm.css
+│   │   └── EmployeeForm.js
+│   │
+│   └── Form/
+│       ├── Form.css
+│       ├── Form.js
+│       ├── FormField.css
+│       └── FormField.js
+│
+├── data/
+│   └── states.js
+│
+├── pages/
+│   ├── CreateEmployee/
+│   │   ├── CreateEmployee.css
+│   │   └── CreateEmployee.js
+│   │
+│   └── EmployeeList/
+│       ├── EmployeeList.css
+│       └── EmployeeList.js
+│
+├── redux/
+│   ├── reducers/
+│   │   └── rootReducer.js
+│   └── slices/
+│       └── employeeSlice.js
+│   └── store.js
+│
+├── types/
+│   └── react-modal-plugin-hrnet-agmx.d.ts
+│
+├── App.css
+├── App.js
+├── App.test.js
+├── index.css
+├── index.js
+├── logo.svg
+├── reportWebVitals.js
+└── setupTests.js
+```
 
-### Code Splitting
+- **components/**: Contains reusable UI components such as forms (AddressForm, EmployeeForm, and Form).
+- **data/**: Holds static data like `states.js` used for form dropdowns.
+- **pages/**: Contains page-specific components for employee creation and list display.
+- **redux/**: Contains Redux store setup, reducers, and slices for managing global state.
+- **types/**: Stores type definitions for the custom modal plugin.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- **Root files**: Core application setup files, including entry points (`index.js`, `App.js`), styles, tests, and utilities.
 
-### Analyzing the Bundle Size
+## Performance Monitoring
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+For performance audits, it is recommended to run **Lighthouse** on both development and production builds.
 
-### Making a Progressive Web App
+1. Start the app in development mode:
+   ```bash
+   npm start
+   ```
+2. Run Lighthouse for performance insights and optimization opportunities.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Contributing
 
-### Advanced Configuration
+Contributions are welcome! Feel free to submit a pull request or open an issue.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## License
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is licensed under the MIT License.

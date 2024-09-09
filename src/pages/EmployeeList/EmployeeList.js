@@ -124,6 +124,7 @@ const EmployeeList = () => {
 
   return (
     <div className="container employee-list-container">
+      <h1>HRNet</h1>
       <h2>Current Employees</h2>
       <Link to="/" className="page-link">
         Home
