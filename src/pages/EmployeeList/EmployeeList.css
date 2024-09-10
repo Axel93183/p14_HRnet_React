@@ -11,32 +11,13 @@
   margin: 0.83rem 0 0 0;
 }
 
-table {
-  border: 1px solid black;
-  width: 100%;
-  margin-top: 20px;
-  border-collapse: collapse;
-}
-
-th {
-  border-bottom: 2px solid black;
-  background: #f0f0f0;
-  padding: 10px;
-}
-
-td {
-  padding: 10px;
-  border: 1px solid black;
-}
-
 .no-employees {
   font-style: italic;
   color: #999;
   margin-top: 20px;
 }
 
-.top-table-container,
-.bottom-table-container {
+.top-table-container {
   width: 100%;
   display: flex;
   align-items: center;
@@ -50,21 +31,6 @@ td {
 
 .top-table-container select {
   margin: 0 5px;
-}
-
-.search-container {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.search-container label {
-  margin: 0;
-}
-
-.pagination-buttons {
-  display: flex;
-  gap: 50px;
 }
 
 .actions-container {

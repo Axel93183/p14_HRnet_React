@@ -13,14 +13,14 @@ const employeeSlice = createSlice({
     },
     removeEmployee: (state, action) => {
       state.employees = state.employees.filter(
-        (employee) => employee.id !== action.payload
+        (employee) => employee.id !== action.payload,
       );
 
       const savedEmployees =
         JSON.parse(localStorage.getItem("employees")) || [];
 
       const updatedEmployees = savedEmployees.filter(
-        (employee) => employee.id !== action.payload
+        (employee) => employee.id !== action.payload,
       );
 
       localStorage.setItem("employees", JSON.stringify(updatedEmployees));
