@@ -14,13 +14,13 @@ import { getColumns } from "../TableColumns/TableColumns";
 import TableRow from "../TableRow/TableRow";
 import "./Table.css";
 
-const Table = ({ handleEditEmployee }) => {
+const Table = ({ handleEditTable }) => {
   const dispatch = useDispatch();
   const employees = useSelector((state) => state.employees.employees);
 
   const columns = React.useMemo(
-    () => getColumns(dispatch, handleEditEmployee),
-    [dispatch, handleEditEmployee],
+    () => getColumns(dispatch, handleEditTable),
+    [dispatch, handleEditTable]
   );
   const data = React.useMemo(() => employees, [employees]);
 
@@ -45,7 +45,7 @@ const Table = ({ handleEditEmployee }) => {
     useFilters,
     useGlobalFilter,
     useSortBy,
-    usePagination,
+    usePagination
   );
 
   return (
@@ -63,7 +63,7 @@ const Table = ({ handleEditEmployee }) => {
               <tr key={key} {...headerGroupProps}>
                 {headerGroup.headers.map((column) => {
                   const { key, ...columnProps } = column.getHeaderProps(
-                    column.getSortByToggleProps(),
+                    column.getSortByToggleProps()
                   );
                   return (
                     <th key={key} {...columnProps}>
