@@ -1,6 +1,6 @@
 # HRNet Employee Management Application
 
-![logo wealth health](/images/wealth-health.png)
+![logo wealth health](public/images/wealth-health.png)
 
 This is a **React** application built for managing employees in a Human Resources system, featuring employee creation, listing, and sorting capabilities. It integrates **React**, **Redux**, and **react-table** to provide an efficient and user-friendly interface.
 
