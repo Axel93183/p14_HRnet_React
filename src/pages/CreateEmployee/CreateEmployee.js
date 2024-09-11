@@ -19,6 +19,7 @@ const CreateEmployee = () => {
 
   return (
     <div className="container ">
+      <img src="/images/wealth-health.png" alt="logo wealth health" />
       <h1>HRNet</h1>
       <h2>Create Employee</h2>
       <Link to={"/employee-list"} className="page-link">

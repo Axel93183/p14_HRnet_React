@@ -10,6 +10,7 @@ const EmployeeList = () => {
 
   return (
     <div className="container employee-list-container">
+      <img src="/images/wealth-health.png" alt="logo wealth health" />
       <h1>HRNet</h1>
       <h2>Current Employees</h2>
       <Link to="/" className="page-link">
