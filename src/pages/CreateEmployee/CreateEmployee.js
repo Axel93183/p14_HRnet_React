@@ -20,12 +20,17 @@ const CreateEmployee = () => {
   return (
     <div className="container ">
       <img src="/images/wealth-health.png" alt="logo wealth health" />
-      <h1>HRNet</h1>
-      <h2>Create Employee</h2>
+      <div className="page-header">
+        <h1>HRNet</h1>
+        <h2>Create Employee</h2>
+      </div>
       <Link to={"/employee-list"} className="page-link">
         View Current Employees
       </Link>
       <EmployeeForm onSuccess={handleSuccess} />
+      <Link to={"/employee-list"} className="page-link">
+        View Current Employees
+      </Link>
       <ModalComponent isOpen={isModalOpen} onClose={closeModal} className="">
         <h2>Employee Created!</h2>
         <p>Your employee was successfully added to the list.</p>

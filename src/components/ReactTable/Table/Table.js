@@ -7,16 +7,18 @@ import {
   useSortBy,
   useTable,
 } from "react-table";
+
 import Filter from "../Filter/Filter";
 import Pagination from "../Pagination/Pagination";
 import Search from "../Search/Search";
 import { getColumns } from "../TableColumns/TableColumns";
 import TableRow from "../TableRow/TableRow";
+
 import "./Table.css";
 
 const Table = ({ handleEditTable }) => {
   const dispatch = useDispatch();
-  const employees = useSelector((state) => state.employees.employees);
+  const employees = useSelector((state) => state.employees);
 
   const columns = React.useMemo(
     () => getColumns(dispatch, handleEditTable),
@@ -50,7 +52,7 @@ const Table = ({ handleEditTable }) => {
 
   return (
     <>
-      <div className="top-table-container">
+      <div className="table-header">
         <Search globalFilter={globalFilter} setGlobalFilter={setGlobalFilter} />
         <Filter setPageSize={setPageSize} pageSize={pageSize} />
       </div>
@@ -96,16 +98,21 @@ const Table = ({ handleEditTable }) => {
           )}
         </tbody>
       </table>
-      <Pagination
-        pageIndex={pageIndex}
-        pageCount={pageCount}
-        canPreviousPage={canPreviousPage}
-        canNextPage={canNextPage}
-        gotoPage={gotoPage}
-        nextPage={nextPage}
-        previousPage={previousPage}
-        pageOptions={pageOptions}
-      />
+      <div className="table-footer">
+        <p>
+          Showing {page.length} of {data.length} total entries
+        </p>
+        <Pagination
+          pageIndex={pageIndex}
+          pageCount={pageCount}
+          canPreviousPage={canPreviousPage}
+          canNextPage={canNextPage}
+          gotoPage={gotoPage}
+          nextPage={nextPage}
+          previousPage={previousPage}
+          pageOptions={pageOptions}
+        />
+      </div>
     </>
   );
 };

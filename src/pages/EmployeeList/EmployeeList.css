@@ -17,22 +17,6 @@
   margin-top: 20px;
 }
 
-.top-table-container {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: #333;
-}
-
-.top-table-container {
-  justify-content: space-between;
-}
-
-.top-table-container select {
-  margin: 0 5px;
-}
-
 .actions-container {
   margin: 0 3px;
   display: flex;

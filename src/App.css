@@ -26,12 +26,19 @@ label {
 .page-link {
   text-decoration: none;
   color: rgb(77, 77, 255);
-  margin-bottom: 5px;
   font-size: 1.2em;
   font-weight: bold;
-  margin: 0.83em;
+  margin-bottom: 10px;
 }
 
 .page-link:hover {
   color: rgb(2, 2, 7);
+}
+
+.page-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 20px;
 }

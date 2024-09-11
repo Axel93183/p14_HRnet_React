@@ -4,7 +4,7 @@ import "./TableRow.css";
 
 const TableRow = ({ row, prepareRow }) => {
   prepareRow(row);
-  const { key, ...rowProps } = row.getRowProps(); // Extraire la clé et les autres props
+  const { key, ...rowProps } = row.getRowProps();
   return (
     <tr key={key} {...rowProps} className="table-row">
       {row.cells.map((cell) => (

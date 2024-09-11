@@ -1,4 +1,5 @@
-.top-table-container {
+.table-header,
+.table-footer {
   width: 100%;
   display: flex;
   align-items: center;
@@ -6,10 +7,17 @@
   color: #333;
 }
 
-.top-table-container {
+.table-header {
   justify-content: space-between;
 }
 
+.table-header select {
+  margin: 0 5px;
+}
+
+.table-footer {
+  margin-top: 15px;
+}
 .table {
   width: 100%;
   border-collapse: collapse;
